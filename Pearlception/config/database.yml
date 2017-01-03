@@ -14,8 +14,18 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
-  password:
+  password: terps
   socket: /var/run/mysqld/mysqld.sock
+
+stats: 
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: ivauser
+  password: ivapassword
+  host: taylors.c02zesysnssi.us-west-2.rds.amazonaws.com
+  port: 3306
+  database: taylors
 
 development:
   <<: *default
