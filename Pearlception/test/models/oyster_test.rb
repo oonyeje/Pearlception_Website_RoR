@@ -14,4 +14,5 @@ class OysterTest < ActiveSupport::TestCase
         grade = first.grade == "Rej"
         assert id && run && grade
     end
+	
 end
