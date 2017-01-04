@@ -17,15 +17,19 @@ default: &default
   password: terps
   socket: /var/run/mysqld/mysqld.sock
 
-stats: 
+stats_development: &stats 
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: <%= ENV['DB_USER'] %> 
+  username: ivauser
   password: <%= ENV['DB_PASS'] %>
   host: taylors.c02zesysnssi.us-west-2.rds.amazonaws.com
   port: 3306
-  database: taylors
+  database: main
+
+
+stats_test:
+  <<: *stats
 
 development:
   <<: *default
