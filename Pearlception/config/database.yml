@@ -21,9 +21,9 @@ stats_development: &stats
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: ivauser
-  password: <%= ENV['DB_PASS'] %>
-  host: taylors.c02zesysnssi.us-west-2.rds.amazonaws.com
+  username: <%= ENV['STATS_DB_USER'] %> 
+  password: <%= ENV['STATS_DB_PASS'] %>
+  host: <%= ENV['STATS_DB_URL'] %>
   port: 3306
   database: main
 
