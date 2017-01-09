@@ -14,8 +14,22 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
-  password:
+  password: terps
   socket: /var/run/mysqld/mysqld.sock
+
+stats_development: &stats 
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: <%= ENV['STATS_DB_USER'] %> 
+  password: <%= ENV['STATS_DB_PASS'] %>
+  host: <%= ENV['STATS_DB_URL'] %>
+  port: 3306
+  database: main
+
+
+stats_test:
+  <<: *stats
 
 development:
   <<: *default
