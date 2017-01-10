@@ -13,9 +13,9 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: root
-  password: terps
-  socket: /var/run/mysqld/mysqld.sock
+  username: <%= ENV['TEST_USER'] %>
+  password: <%= ENV['TEST_PASS'] %>
+  socket: <%= ENV['TEST_SOCKET'] %> 
 
 stats_development: &stats 
   adapter: mysql2
