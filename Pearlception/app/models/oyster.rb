@@ -8,4 +8,5 @@ class Oyster < ApplicationRecord
     :password => ENV['STATS_DB_PASS'],
     :database => "main"
     )
+    scope :run_id, -> (id) { where run_id: id.to_i }
 end
