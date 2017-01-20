@@ -84,11 +84,18 @@
             </div>
           </div> -->
 
-          <h2 class="sub-header">Recent Results</h2>
+          <% if current_user.admin? %>
+            <h2 class="sub-header">Recent Results From All Companies</h2>
+          <% else %>
+            <h2 class="sub-header">Recent Results</h2>
+          <% end %>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
+                    <% if current_user.admin? %>
+                      <th>Company</th>
+                    <% end %>
                   <th>Run Date</th>
                   <th>Location</th>
                   <th>Harvest Time</th>
@@ -99,6 +106,59 @@
                 </tr>
               </thead>
               <tbody>
+                  <% if current_user.admin? %>
+                  <% @results.each_slice(1) do |row| %>
+                    <tr>
+                        <% row.each do |result|
+                            run = Run.find(result.id)
+                            #company = Company.find(run.company_id)
+                            %>
+
+                            <!-- company name -->
+                            <td>
+                                <%= #company.company_name
+                                "Fake Industries" %>
+                            </td>
+
+                            <!-- run date -->
+                            <td>
+                                <%= run.runDate %>
+                            </td>
+
+                            <!-- location -->
+                            <td>
+                                <%= run.location ? run.location : "" %>
+                            </td>
+
+                            <!-- harvest time -->
+                            <td>
+                                <%= "" %>
+                            </td>
+
+                            <!-- supplier -->
+                            <td>
+
+                                <%= run.supplier ? run.supplier : "" %>
+                            </td>
+
+                            <!-- distributor -->
+                            <td>
+                                <%= run.distributor ? run.distributor : "" %>
+                            </td>
+
+                            <!-- total processed -->
+                            <td>
+                                <%= result.total %>
+                            </td>
+
+                            <!-- other -->
+                            <td>
+                                <%= run.other ? run.other : "" %>
+                            </td>
+                        <% end %>
+                    </tr>
+                  <% end %>
+                  <% else %>
                   <% @results.each_slice(1) do |row| %>
                     <tr>
                         <% row.each do |result|
@@ -140,6 +200,7 @@
                             </td>
                         <% end %>
                     </tr>
+                  <% end %>
                   <% end %>
               </tbody>
             </table>
