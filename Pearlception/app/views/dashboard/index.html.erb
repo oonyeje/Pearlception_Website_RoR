@@ -143,6 +143,12 @@
                   <% end %>
               </tbody>
             </table>
+            <div class="center-block">
+                <div class="col-sm-6 panel panel-primary" align="center">
+                    <%= paginate @results %><br>
+                    <%= page_entries_info @results %>
+                </div>
+            </div>
           </div>
         </div>
       </div>
