@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_one :company
+  belongs_to :company
   has_many :runs
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

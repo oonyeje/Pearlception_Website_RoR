@@ -1,0 +1,111 @@
+<%= stylesheet_link_tag "dashboard" %>_
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Pearlception</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <!-- <li><a href="#">Dashboard</a></li> -->
+            <!-- <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li> -->
+            <li>
+                <%= link_to(destroy_user_session_path, class: 'logout-link', :method => :delete) do %>
+                <i class="fa fa-external-link"></i> Logout
+                <% end %>
+            </li>
+          </ul>
+          <!-- <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form> -->
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="/">Overview <span class="sr-only">(current)</span></a></li>
+            <% if current_user.admin? %>
+                <li class="active"><a href="companies#index">Companies</a></li>
+            <% else %>
+              <li><a href="#">Reports</a></li>
+              <li><a href="#">Analytics</a></li>
+              <li><a href="#">Export</a></li>
+            <% end %>
+          </ul>
+          <!-- <ul class="nav nav-sidebar">
+            <li><a href="">Nav item</a></li>
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+            <li><a href="">More navigation</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+          </ul> -->
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Companies</h1>
+          <h2 class="sub-header">Registered Companies: <%= @companies.count %> </h2>
+          <div class="panel panel-primary table-responsive">
+              <%= link_to(new_company_path, :method => :get) do %>
+              <i class="fa fa-external-link"></i> Register a Company
+              <% end %>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Company ID</th>
+                  <th>Company Name</th>
+                  <th>Registration Serial Key</th>
+                </tr>
+              </thead>
+                  <% if @companies.empty? %>
+                    </table>
+                    <div class="panel panel-primary">
+                        <p>No Companies Registered</p>
+                    </div>
+                    <% else %>
+                        <tbody>
+                          <% @companies.each_slice(1) do |row| %>
+                                     <tr>
+                                         <% row.each do |company|%>
+
+                                             <!-- company id -->
+                                             <td>
+                                                 <%= company.id %>
+                                             </td>
+
+                                             <!-- company_name -->
+                                             <td>
+                                                 <%= company.company_name %>
+                                             </td>
+
+                                             <!-- company registration token -->
+                                             <td>
+                                                 <%= company.company_token %>
+                                             </td>
+                                         <% end %>
+                                     </tr>
+                                   <% end %>
+                        </tbody>
+                    </table>
+                  <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= javascript_include_tag "bootstrap.min" %>_
+</body>
