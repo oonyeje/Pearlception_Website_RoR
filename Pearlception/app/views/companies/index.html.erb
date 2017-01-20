@@ -59,15 +59,14 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">Companies</h1>
-          <h2 class="sub-header">Registered Companies</h2>
-          <div class="table-responsive">
+          <h2 class="sub-header">Registered Companies: <%= @companies.count %> </h2>
+          <div class="panel panel-primary table-responsive">
               <%= link_to(new_company_path, :method => :get) do %>
               <i class="fa fa-external-link"></i> Register a Company
               <% end %>
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>#</th>
                   <th>Company ID</th>
                   <th>Company Name</th>
                   <th>Registration Serial Key</th>
@@ -80,6 +79,27 @@
                     </div>
                     <% else %>
                         <tbody>
+                          <% @companies.each_slice(1) do |row| %>
+                                     <tr>
+                                         <% row.each do |company|%>
+
+                                             <!-- company id -->
+                                             <td>
+                                                 <%= company.id %>
+                                             </td>
+
+                                             <!-- company_name -->
+                                             <td>
+                                                 <%= company.company_name %>
+                                             </td>
+
+                                             <!-- company registration token -->
+                                             <td>
+                                                 <%= company.company_token %>
+                                             </td>
+                                         <% end %>
+                                     </tr>
+                                   <% end %>
                         </tbody>
                     </table>
                   <% end %>

@@ -159,48 +159,48 @@
                     </tr>
                   <% end %>
                   <% else %>
-                  <% @results.each_slice(1) do |row| %>
-                    <tr>
-                        <% row.each do |result|
-                            run = Run.find(result.id) %>
-                            <!-- run date -->
-                            <td>
-                                <%= run.runDate %>
-                            </td>
+                      <% @results.each_slice(1) do |row| %>
+                        <tr>
+                            <% row.each do |result|
+                                run = Run.find(result.id) %>
+                                <!-- run date -->
+                                <td>
+                                    <%= run.runDate %>
+                                </td>
 
-                            <!-- location -->
-                            <td>
-                                <%= run.location ? run.location : "" %>
-                            </td>
+                                <!-- location -->
+                                <td>
+                                    <%= run.location ? run.location : "" %>
+                                </td>
 
-                            <!-- harvest time -->
-                            <td>
-                                <%= "" %>
-                            </td>
+                                <!-- harvest time -->
+                                <td>
+                                    <%= "" %>
+                                </td>
 
-                            <!-- supplier -->
-                            <td>
+                                <!-- supplier -->
+                                <td>
 
-                                <%= run.supplier ? run.supplier : "" %>
-                            </td>
+                                    <%= run.supplier ? run.supplier : "" %>
+                                </td>
 
-                            <!-- distributor -->
-                            <td>
-                                <%= run.distributor ? run.distributor : "" %>
-                            </td>
+                                <!-- distributor -->
+                                <td>
+                                    <%= run.distributor ? run.distributor : "" %>
+                                </td>
 
-                            <!-- total processed -->
-                            <td>
-                                <%= result.total %>
-                            </td>
+                                <!-- total processed -->
+                                <td>
+                                    <%= result.total %>
+                                </td>
 
-                            <!-- other -->
-                            <td>
-                                <%= run.other ? run.other : "" %>
-                            </td>
-                        <% end %>
-                    </tr>
-                  <% end %>
+                                <!-- other -->
+                                <td>
+                                    <%= run.other ? run.other : "" %>
+                                </td>
+                            <% end %>
+                        </tr>
+                      <% end %>
                   <% end %>
               </tbody>
             </table>
