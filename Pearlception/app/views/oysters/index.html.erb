@@ -1,0 +1,128 @@
+<%= stylesheet_link_tag "dashboard" %>_
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Pearlception</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <!-- <li><a href="#">Dashboard</a></li> -->
+            <!-- <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li> -->
+            <li>
+                <%= link_to(destroy_user_session_path, class: 'logout-link', :method => :delete) do %>
+                <i class="fa fa-external-link"></i> Logout
+                <% end %>
+            </li>
+          </ul>
+          <!-- <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form> -->
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="/">Overview <span class="sr-only">(current)</span></a></li>
+            <% if current_user.admin? %>
+                <li><a href="companies#index">Companies</a></li>
+            <% else %>
+              <!-- <li><a href="#">Reports</a></li>
+              <li><a href="#">Analytics</a></li>
+              <li><a href="#">Export</a></li> -->
+            <% end %>
+          </ul>
+          <!-- <ul class="nav nav-sidebar">
+            <li><a href="">Nav item</a></li>
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+            <li><a href="">More navigation</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+          </ul> -->
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <%= link_to "Back", root_path( :page => params[:page_num]), :class => "btn btn-primary" %>
+          <h1 class="page-header">Results of <%= Run.find(params[:result_id]).runDate %></h1>
+          <h2 class="sub-header">Processed Oysters: <%= @oysters_count %> </h2>
+          <% if @oysters.empty? %>
+            <div class="panel panel-primary">
+                <p>No Oysters Processed</p>
+            </div>
+            <% else %>
+              <div class="panel panel-primary table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Oyster Grade</th>
+                      <th>Volume</th>
+                      <th>Length</th>
+                      <th>Width</th>
+                      <th>Height</th>
+                    </tr>
+                  </thead>
+                    <tbody>
+                      <% @oysters.each_slice(1) do |row| %>
+                         <tr>
+                             <% row.each do |oyster|%>
+
+                                 <!-- grade -->
+                                 <td>
+                                     <%= oyster.grade %>
+                                 </td>
+
+                                 <!-- volume -->
+                                 <td>
+                                     <%= oyster.volume %>
+                                 </td>
+
+                                 <!-- length -->
+                                 <td>
+                                     <%= oyster.length %>
+                                 </td>
+
+                                 <!-- width -->
+                                 <td>
+                                     <%= oyster.width %>
+                                 </td>
+
+                                 <!-- height -->
+                                 <td>
+                                     <%= oyster.height %>
+                                 </td>
+                             <% end %>
+                         </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+              </div>
+            <% end %>
+          <% if !@oysters.empty? %>
+              <div class="center-block">
+                  <div class="col-sm-6 panel panel-primary" align="center">
+                      <%= paginate @oysters %><br>
+                      <%= page_entries_info @oysters %>
+                  </div>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <%= javascript_include_tag "bootstrap.min" %>_
+</body>

@@ -103,6 +103,7 @@
                   <th>Distributor</th>
                   <th>Total Processed</th>
                   <th>Other</th>
+                  <th>Oyster Info</th>
                 </tr>
               </thead>
               <tbody>
@@ -197,6 +198,9 @@
                                 <!-- other -->
                                 <td>
                                     <%= run.other ? run.other : "" %>
+                                </td>
+                                <td>
+                                  <%= link_to "Show", oysters_index_path( :result_id => result.id, :page_num => params[:page]), :class => "btn btn-primary" %>
                                 </td>
                             <% end %>
                         </tr>
