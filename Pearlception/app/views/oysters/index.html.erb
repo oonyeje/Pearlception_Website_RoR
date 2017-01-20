@@ -68,54 +68,58 @@
             <% else %>
               <div class="panel panel-primary table-responsive">
                 <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Oyster Grade</th>
-                      <th>Volume</th>
-                      <th>Length</th>
-                      <th>Width</th>
-                      <th>Height</th>
-                    </tr>
-                  </thead>
-                    <tbody>
-                      <% @oysters.each_slice(1) do |row| %>
-                         <tr>
-                             <% row.each do |oyster|%>
+                    <div class="panel-heading">
+                        <thead>
+                          <tr>
+                            <th>Oyster Grade</th>
+                            <th>Volume</th>
+                            <th>Length</th>
+                            <th>Width</th>
+                            <th>Height</th>
+                          </tr>
+                        </thead>
+                    </div>
+                    <div class="panel-body">
+                        <tbody>
+                          <% @oysters.each_slice(1) do |row| %>
+                             <tr>
+                                 <% row.each do |oyster|%>
 
-                                 <!-- grade -->
-                                 <td>
-                                     <%= oyster.grade %>
-                                 </td>
+                                     <!-- grade -->
+                                     <td>
+                                         <%= oyster.grade %>
+                                     </td>
 
-                                 <!-- volume -->
-                                 <td>
-                                     <%= oyster.volume %>
-                                 </td>
+                                     <!-- volume -->
+                                     <td>
+                                         <%= oyster.volume %>
+                                     </td>
 
-                                 <!-- length -->
-                                 <td>
-                                     <%= oyster.length %>
-                                 </td>
+                                     <!-- length -->
+                                     <td>
+                                         <%= oyster.length %>
+                                     </td>
 
-                                 <!-- width -->
-                                 <td>
-                                     <%= oyster.width %>
-                                 </td>
+                                     <!-- width -->
+                                     <td>
+                                         <%= oyster.width %>
+                                     </td>
 
-                                 <!-- height -->
-                                 <td>
-                                     <%= oyster.height %>
-                                 </td>
-                             <% end %>
-                         </tr>
-                        <% end %>
-                    </tbody>
+                                     <!-- height -->
+                                     <td>
+                                         <%= oyster.height %>
+                                     </td>
+                                 <% end %>
+                             </tr>
+                            <% end %>
+                        </tbody>
+                    </div>
                 </table>
               </div>
             <% end %>
           <% if !@oysters.empty? %>
               <div class="center-block">
-                  <div class="col-sm-6 panel panel-primary" align="center">
+                  <div class="col-sm-6 col-sm-offset-3 panel panel-primary" align="center">
                       <%= paginate @oysters %><br>
                       <%= page_entries_info @oysters %>
                   </div>

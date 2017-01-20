@@ -89,131 +89,138 @@
           <% else %>
             <h2 class="sub-header">Recent Results</h2>
           <% end %>
-          <div class="table-responsive">
+          <div class="table-responsive panel panel-primary">
             <table class="table table-striped">
-              <thead>
-                <tr>
-                    <% if current_user.admin? %>
-                      <th>Company</th>
-                    <% end %>
-                  <th>Run Date</th>
-                  <th>Location</th>
-                  <th>Harvest Time</th>
-                  <th>Supplier</th>
-                  <th>Distributor</th>
-                  <th>Total Processed</th>
-                  <th>Other</th>
-                  <th>Oyster Info</th>
-                </tr>
-              </thead>
-              <tbody>
-                  <% if current_user.admin? %>
-                  <% @results.each_slice(1) do |row| %>
-                    <tr>
-                        <% row.each do |result|
-                            run = Run.find(result.id)
-                            #company = Company.find(run.company_id)
-                            %>
-
-                            <!-- company name -->
-                            <td>
-                                <%= #company.company_name
-                                "Fake Industries" %>
-                            </td>
-
-                            <!-- run date -->
-                            <td>
-                                <%= run.runDate %>
-                            </td>
-
-                            <!-- location -->
-                            <td>
-                                <%= run.location ? run.location : "" %>
-                            </td>
-
-                            <!-- harvest time -->
-                            <td>
-                                <%= "" %>
-                            </td>
-
-                            <!-- supplier -->
-                            <td>
-
-                                <%= run.supplier ? run.supplier : "" %>
-                            </td>
-
-                            <!-- distributor -->
-                            <td>
-                                <%= run.distributor ? run.distributor : "" %>
-                            </td>
-
-                            <!-- total processed -->
-                            <td>
-                                <%= result.total %>
-                            </td>
-
-                            <!-- other -->
-                            <td>
-                                <%= run.other ? run.other : "" %>
-                            </td>
-                        <% end %>
-                    </tr>
-                  <% end %>
-                  <% else %>
-                      <% @results.each_slice(1) do |row| %>
-                        <tr>
-                            <% row.each do |result|
-                                run = Run.find(result.id) %>
-                                <!-- run date -->
-                                <td>
-                                    <%= run.runDate %>
-                                </td>
-
-                                <!-- location -->
-                                <td>
-                                    <%= run.location ? run.location : "" %>
-                                </td>
-
-                                <!-- harvest time -->
-                                <td>
-                                    <%= "" %>
-                                </td>
-
-                                <!-- supplier -->
-                                <td>
-
-                                    <%= run.supplier ? run.supplier : "" %>
-                                </td>
-
-                                <!-- distributor -->
-                                <td>
-                                    <%= run.distributor ? run.distributor : "" %>
-                                </td>
-
-                                <!-- total processed -->
-                                <td>
-                                    <%= result.total %>
-                                </td>
-
-                                <!-- other -->
-                                <td>
-                                    <%= run.other ? run.other : "" %>
-                                </td>
-                                <td>
-                                  <%= link_to "Show", oysters_index_path( :result_id => result.id, :page_num => params[:page]), :class => "btn btn-primary" %>
-                                </td>
-                            <% end %>
-                        </tr>
-                      <% end %>
-                  <% end %>
-              </tbody>
-            </table>
-            <div class="center-block">
-                <div class="col-sm-6 panel panel-primary" align="center">
-                    <%= paginate @results %><br>
-                    <%= page_entries_info @results %>
+                <div class="panel-heading">
+                    <thead>
+                      <tr>
+                          <% if current_user.admin? %>
+                            <th>Company</th>
+                          <% end %>
+                        <th>Run Date</th>
+                        <th>Location</th>
+                        <th>Harvest Time</th>
+                        <th>Supplier</th>
+                        <th>Distributor</th>
+                        <th>Total Processed</th>
+                        <th>Other</th>
+                        <th>Oyster Info</th>
+                      </tr>
+                    </thead>
                 </div>
-            </div>
+                <div class="panel-body">
+                    <tbody>
+                        <% if current_user.admin? %>
+                        <% @results.each_slice(1) do |row| %>
+                          <tr>
+                              <% row.each do |result|
+                                  run = Run.find(result.id)
+                                  #company = Company.find(run.company_id)
+                                  %>
+
+                                  <!-- company name -->
+                                  <td>
+                                      <%= #company.company_name
+                                      "Fake Industries" %>
+                                  </td>
+
+                                  <!-- run date -->
+                                  <td>
+                                      <%= run.runDate %>
+                                  </td>
+
+                                  <!-- location -->
+                                  <td>
+                                      <%= run.location ? run.location : "" %>
+                                  </td>
+
+                                  <!-- harvest time -->
+                                  <td>
+                                      <%= "" %>
+                                  </td>
+
+                                  <!-- supplier -->
+                                  <td>
+
+                                      <%= run.supplier ? run.supplier : "" %>
+                                  </td>
+
+                                  <!-- distributor -->
+                                  <td>
+                                      <%= run.distributor ? run.distributor : "" %>
+                                  </td>
+
+                                  <!-- total processed -->
+                                  <td>
+                                      <%= result.total %>
+                                  </td>
+
+                                  <!-- other -->
+                                  <td>
+                                      <%= run.other ? run.other : "" %>
+                                  </td>
+                                  <td>
+                                    <%= link_to "Show", oysters_index_path( :result_id => result.id, :page_num => params[:page]), :class => "btn btn-primary" %>
+                                  </td>
+                              <% end %>
+                          </tr>
+                        <% end %>
+                        <% else %>
+                            <% @results.each_slice(1) do |row| %>
+                              <tr>
+                                  <% row.each do |result|
+                                      run = Run.find(result.id) %>
+                                      <!-- run date -->
+                                      <td>
+                                          <%= run.runDate %>
+                                      </td>
+
+                                      <!-- location -->
+                                      <td>
+                                          <%= run.location ? run.location : "" %>
+                                      </td>
+
+                                      <!-- harvest time -->
+                                      <td>
+                                          <%= "" %>
+                                      </td>
+
+                                      <!-- supplier -->
+                                      <td>
+
+                                          <%= run.supplier ? run.supplier : "" %>
+                                      </td>
+
+                                      <!-- distributor -->
+                                      <td>
+                                          <%= run.distributor ? run.distributor : "" %>
+                                      </td>
+
+                                      <!-- total processed -->
+                                      <td>
+                                          <%= result.total %>
+                                      </td>
+
+                                      <!-- other -->
+                                      <td>
+                                          <%= run.other ? run.other : "" %>
+                                      </td>
+                                      <td>
+                                        <%= link_to "Show", oysters_index_path( :result_id => result.id, :page_num => params[:page]), :class => "btn btn-primary" %>
+                                      </td>
+                                  <% end %>
+                              </tr>
+                            <% end %>
+                        <% end %>
+                    </tbody>
+                </div>
+            </table>
+          </div>
+          <div class="center-block">
+              <div class="col-sm-6 col-sm-offset-3 panel panel-primary" align="center">
+                  <%= paginate @results %></br>
+                  <%= page_entries_info @results %>
+              </div>
           </div>
         </div>
       </div>
