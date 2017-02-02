@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'oysters/show'
+  get 'oysters/index'
+
   root "dashboard#index"
   resources :runs
   resources :companies
