@@ -2,15 +2,24 @@ class RegistrationsController < Devise::RegistrationsController
   include ApplicationHelper
   #protected
 
+
+
   def create
-    binding.pry
     @user = User.new(sign_up_params)
-    if !@user.admin?
-      #search by company token given by one of pearlception admins to the company
-      #and look up comany_id #
-      @user.company_id = 0
+
+    if params[:company_serial]
+      params.require(:user).permit(:company_id)
+      company = Company.find_by(company_token: params[:company_serial])
+
+      if company
+        @user.company_id = company.id
+        if company.company_name == "IVA"
+          @user.admin = true
+        end
+      else
+      end
+
     else
-      @user.company_id = -1
     end
     @user.save
     sign_in @user
@@ -18,6 +27,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def sign_up_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :company_id)
+    params.require(:user).permit(:email, :password, :password_confirmation)
   end
 end
