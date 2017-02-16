@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total: 1
+  grade1: 1
+  grade2: 1
+  grade3: 1
+  machine_id: 1
+  run_id: 1
+
+two:
+  total: 1
+  grade1: 1
+  grade2: 1
+  grade3: 1
+  machine_id: 1
+  run_id: 1

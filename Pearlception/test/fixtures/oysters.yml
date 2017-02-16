@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  run_id: 1
+  grade: MyString
+  volume: 
+  length: 
+  width: 
+  height: 
+  machine_id: 1
+
+two:
+  run_id: 1
+  grade: MyString
+  volume: 
+  length: 
+  width: 
+  height: 
+  machine_id: 1

@@ -1,7 +1,9 @@
 class RegistrationsController < Devise::RegistrationsController
   include ApplicationHelper
   #protected
-
+  def new
+      Apartment::Tenant.switch!
+  end
 
 
   def create
@@ -23,6 +25,9 @@ class RegistrationsController < Devise::RegistrationsController
     end
     @user.save
     sign_in @user
+    if !@user.admin
+      Apartment::Tenant.switch(Company.find(@user.company_id).company_name.gsub(/'/,'').gsub(/\s/,''))
+    end
     redirect_to "/"
   end
 

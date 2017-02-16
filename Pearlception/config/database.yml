@@ -21,9 +21,9 @@ stats_development: &stats
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: <%= ENV['STATS_DB_USER'] %>
-  password: <%= ENV['STATS_DB_PASS'] %>
-  host: <%= ENV['STATS_DB_URL'] %>
+  username: # <%= ENV['STATS_DB_USER'] %>
+  password: # <%= ENV['STATS_DB_PASS'] %>
+  host: # <%= ENV['STATS_DB_URL'] %>
   port: 3306
   database: main
 
@@ -34,6 +34,8 @@ stats_test:
 development:
   <<: *default
   database: Pearlception_development
+  username: root
+  password: Kemitscafe1
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -41,6 +43,8 @@ development:
 test:
   <<: *default
   database: Pearlception_test
+  username: root
+  password: Kemitscafe1
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
