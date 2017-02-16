@@ -35,11 +35,15 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="/">Overview <span class="sr-only">(current)</span></a></li>
+            <li><a href="/">Overview</a></li>
+            <!-- This will be removed and placed with correct logic in corresponding controller -->
             <% if current_user.admin? %>
-                <li class="active"><a href="companies#index">Companies</a></li>
+                <li><a href="companies#index">Companies</a></li>
             <% else %>
-              
+                <li class="active"><a href="grades#index">Grades <span class="sr-only">(current)</span></a></li>
+              <!-- <li><a>Reports</a></li>
+              <li><a>Analytics</a></li>
+              <li><a>Export</a></li> -->
             <% end %>
           </ul>
           <!-- <ul class="nav nav-sidebar">
@@ -56,44 +60,80 @@
           </ul> -->
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Companies</h1>
-          <h2 class="sub-header">Registered Companies: <%= @companies.count %> </h2>
+          <h1 class="page-header">Grades</h1>
+          <h2 class="sub-header">Total Grades: <%= @grades.count %> </h2>
           <div class="panel panel-primary table-responsive">
-              <%= link_to(new_company_path, :method => :get) do %>
-              <i class="fa fa-external-link"></i> Register a Company
+              <%= link_to(new_grade_path, :method => :get) do %>
+              <i class="fa fa-external-link"></i> Add a New Grade
               <% end %>
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Company ID</th>
-                  <th>Company Name</th>
-                  <th>Registration Serial Key</th>
+                  <th>Grade Name</th>
+                  <th>Min Volume</th>
+                  <th>Max Volume</th>
+                  <th>Min Length</th>
+                  <th>Max Length</th>
+                  <th>Min Width</th>
+                  <th>Max Width</th>
+                  <th>Min Height</th>
+                  <th>Max Height</th>
                 </tr>
               </thead>
-                  <% if @companies.empty? %>
+                  <% if @grades.empty? %>
                     </table>
                     <div class="panel panel-primary">
-                        <p>No Companies Registered</p>
+                        <p>No Grades Recorded.</p>
                     </div>
                     <% else %>
                         <tbody>
-                          <% @companies.each_slice(1) do |row| %>
+                          <% @grades.each_slice(1) do |row| %>
                                      <tr>
-                                         <% row.each do |company|%>
+                                         <% row.each do |grade|%>
 
-                                             <!-- company id -->
+                                             <!-- grade_name -->
                                              <td>
-                                                 <%= company.id %>
+                                                 <%= grade.Full_name %>
                                              </td>
 
-                                             <!-- company_name -->
+                                             <!-- volume min -->
                                              <td>
-                                                 <%= company.company_name %>
+                                                 <%= grade.Volume_min %>
                                              </td>
 
-                                             <!-- company registration token -->
+                                             <!-- volume max -->
                                              <td>
-                                                 <%= company.company_token %>
+                                                 <%= grade.Volume_max %>
+                                             </td>
+
+                                             <!-- length min -->
+                                             <td>
+                                                 <%= grade.Length_min %>
+                                             </td>
+
+                                             <!-- length max -->
+                                             <td>
+                                                 <%= grade.Length_max %>
+                                             </td>
+
+                                             <!-- width min -->
+                                             <td>
+                                                 <%= grade.Width_min %>
+                                             </td>
+
+                                             <!-- width max -->
+                                             <td>
+                                                 <%= grade.Width_max %>
+                                             </td>
+
+                                             <!-- height min -->
+                                             <td>
+                                                 <%= grade.Height_min %>
+                                             </td>
+
+                                             <!-- height max -->
+                                             <td>
+                                                 <%= grade.Height_max %>
                                              </td>
                                          <% end %>
                                      </tr>
