@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root "dashboard#index"
   resources :runs
   resources :companies
+  resources :grades
 
   devise_for :users, :controllers => {:registrations => 'registrations'}
   devise_scope :users do

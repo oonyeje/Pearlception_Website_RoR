@@ -7,9 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   
   def after_database_authentication
-    binding.pry
     if !self.admin
-      binding.pry
       Apartment::Tenant.switch!(Company.find(self.company_id).company_name.gsub(/'/,'').gsub(/\s/,''))
     end
   end
