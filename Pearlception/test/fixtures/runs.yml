@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  runDate: 2017-02-10 15:01:22
+  location: MyString
+  harvest_time: MyString
+  supplier: MyString
+  distributor: MyString
+  other: MyString
+  machine_id: 1
+
+two:
+  runDate: 2017-02-10 15:01:22
+  location: MyString
+  harvest_time: MyString
+  supplier: MyString
+  distributor: MyString
+  other: MyString
+  machine_id: 1

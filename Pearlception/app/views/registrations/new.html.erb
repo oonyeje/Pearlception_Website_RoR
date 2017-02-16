@@ -1,4 +1,8 @@
-<h2>Sign up!</h2>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<!--<h2>Sign up!</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -30,4 +34,58 @@
   </div>
 <% end %>
 
-<%= render "users/shared/links" %>
+<%= render "shared/links" %>-->
+<div class="container">
+  <div class="row new_user_row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="panel panel-primary">
+        <ul class="nav nav-tabs">
+          <li role="presentation" class="active"><a href="#register" aria-controls="register" role="tab" data-toggle="pill">Register</a></li>
+          <li><a data-toggle="pill" href="#login">Login</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <!-- register tab -->
+          <div role="tabpanel" class="tab-pane fade in active" id="register">
+            <h2>Sign up!</h2>
+
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+              <%= devise_error_messages! %>
+              <div class="field">
+                <%= f.label :company_Serial %><br />
+                <%= text_field_tag :company_serial, params[:company_serial], class: 'form-control center-text', placeholder: "XXXXX-XXXXXX-XXXXX-XXXX" %>
+              </div>
+
+              <div class="field">
+                <%= f.label :email %><br />
+                <%= f.email_field :email, autofocus: true, class: 'form-control center-text', placeholder: "example@test.com" %>
+              </div>
+
+              <div class="field">
+                <%= f.label :password %>
+                <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em>
+                <% end %><br />
+                <%= f.password_field :password, autocomplete: "off", class: 'form-control center-text', placeholder: "password" %>
+              </div>
+
+              <div class="field">
+                <%= f.label :password_Confirmation %><br />
+                <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control center-text', placeholder: "confirm password" %>
+              </div>
+
+              <div class="actions center">
+                <%= f.submit "Sign up", class: "btn" %>
+              </div>
+            <% end %>
+          </div>
+          <!-- login tab -->
+          <div role="tabpanel" class="tab-pane fade" id="login">
+            <%= render 'partials/login_form' %>
+          </div>
+        </div>
+      </div> <!--Panel tag-->
+    </div>  <!--col-md-8 tag-->
+  </div>  <!--row tag-->
+</div>  <!--container tag-->
+

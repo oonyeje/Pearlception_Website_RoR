@@ -40,6 +40,7 @@ gem 'devise'
 gem 'kaminari'
 #for popovers and tooltips
 gem 'bootstrap-popover-rails'
+gem 'apartment'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
