@@ -10,4 +10,8 @@ class DashboardController < ApplicationController
       redirect_to "/signin" unless user_signed_in?
     end
 
+    def statistics
+
+    end
+
 end
