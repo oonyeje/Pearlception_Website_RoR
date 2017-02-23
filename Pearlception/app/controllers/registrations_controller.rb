@@ -8,11 +8,13 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     @user = User.new(sign_up_params)
-
+    if params[:password] == nil || params[:password_confirmation] == nil
+        flash[:error] = "Need a password to sign up"
+        redirect_to '/signin'
+    end
     if params[:company_serial]
       params.require(:user).permit(:company_id)
       company = Company.find_by(company_token: params[:company_serial])
-
       if company
         @user.company_id = company.id
         if company.company_name == "IVA"
@@ -20,7 +22,6 @@ class RegistrationsController < Devise::RegistrationsController
         end
       else
       end
-
     else
     end
     @user.save
