@@ -47,32 +47,13 @@ Apartment.configure do |config|
   #   end 
   # end 
   # 
- 
+
   names = (Company.pluck :company_name) - ["IVA"] 
- 
-  #client = Mysql2::Client.new( 
-  #  :adapter  => "mysql2", 
-   # :host     => ENV['STATS_DB_URL'], 
-   # :username => ENV['STATS_DB_USER'], 
-   # :password => ENV['STATS_DB_PASS'] 
-  #) 
  
   names.map!{|tenant| tenant.gsub(/'/,'').gsub(/\s/,'')} 
  
-  #names.each { 
-   # |tenant| 
-   # binding.pry 
-   # if ENV['RAILS_ENV'] == "production"  
-   #     client.query("CREATE DATABASE IF NOT EXISTS #{tenant};") 
-   # else 
-   #     client.query("CREATE DATABASE IF NOT EXISTS #{tenant};") 
-   # end 
-  #} 
- # client.close 
   config.tenant_names = names 
  
-  #names = (Company.pluck :company_name) - ["IVA"] 
-# 
   # ==> PostgreSQL only options 
  
   # Specifies whether to use PostgreSQL schemas or create a new database per Tenant. 
