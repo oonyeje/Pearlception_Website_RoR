@@ -4,9 +4,10 @@ require 'fileutils'
 
 $company_data_endpoint = "companydata.c02zesysnssi.us-west-2.rds.amazonaws.com"
 
-def establish_db_connection
-	client = Mysql2::Client.new(host:$company_data_endpoint, username:"ivauser", password:"ivapassword", database: "Hooper's Island")
+class Run
+
 end
+
 
 #This will run the initial migration that sets up the db to be apartment friendly
 def initial_migration
@@ -30,21 +31,14 @@ def bundle
     end
 end
 
-def migrate_oysters
-	client = establish_db_connection
-	puts "Connection established"
-	client.query("SHOW TABLES").each do |tab|
-		puts tab
-	end
-	client.query("SELECT *  FROM runs").each do |res|
-		puts "got result"
-		puts res
-	end
+def setup_initial_admin
+	client = Mysql2::Client.new(host:'localhost' ,username:"colealban", password:"1156244Terps!", database: "Pearlception_development")
+	client.query("INSERT INTO companies (company_name, company_token, created_at, updated_at) VALUES (\"IVA\", \"a41b23cf-1d61-4fb4-9b69-0167abd7c583\",NOW(),NOW())")
 end
 
 ########## MAIN METHOD #####################
 bundle #bundle install
 initial_migration #Setup db
-#migrate_oysters
+setup_initial_admin
 #add in og admin
 #Migrate all the oysters,runs,results from the AWS DB
