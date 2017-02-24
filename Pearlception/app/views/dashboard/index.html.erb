@@ -89,15 +89,16 @@
             <h2 class="sub-header">Recent Results From All Companies</h2>
 
             <div class="panel-group" id="accordion">
+                <span hidden><%= @i = 1 %></span>
                 <% ((Company.pluck :company_name) - ["IVA"]).each do |company_name| %>
                     <div class="panel panel-primary">
                       <div class="panel-heading">
                         <h3 class="panel-title text-center">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%="#{@i}"%>">
                           <%= company_name %> </a>
                         </h3>
                       </div>
-                      <div id="collapse1" class="panel-collapse collapse">
+                      <div id="collapse<%="#{@i}"%>" class="panel-collapse collapse <%= (@results[company_name.gsub(/'/,'').gsub(/\s/,'')][:active] && @results[company_name.gsub(/'/,'').gsub(/\s/,'')][:name] == company_name.gsub(/'/,'').gsub(/\s/,'') ) ? "in" : ""%>">
                         <div class="panel-body">
                             <div class="table-responsive panel panel-primary">
                               <table class="table table-striped">
@@ -116,11 +117,12 @@
                                       </thead>
                                   </div>
                                   <div class="panel-body">
+                                      <span hidden><%= Apartment::Tenant.switch!(company_name.gsub(/'/,'').gsub(/\s/,'')) %></span>
                                       <tbody>
-                                          <% @results[company_name.gsub(/'/,'').gsub(/\s/,'')].each_slice(1) do |row| %>
+                                          <% @results[company_name.gsub(/'/,'').gsub(/\s/,'')][:results].each_slice(1) do |row| %>
                                             <tr>
                                                 <% row.each do |result|
-                                                    run = Run.find(result.id) %>
+                                                    run = result#Run.find(result.id) %>
                                                     <!-- run date -->
                                                     <td>
                                                         <%= run.runDate %>
@@ -169,13 +171,14 @@
 
                             <div class="center-block">
                                 <div class="col-sm-6 col-sm-offset-3 panel panel-primary" align="center">
-                                    <%= paginate @results[company_name.gsub(/'/,'').gsub(/\s/,'')] %></br>
-                                    <%= page_entries_info @results[company_name.gsub(/'/,'').gsub(/\s/,'')] %>
+                                    <%= paginate @results[company_name.gsub(/'/,'').gsub(/\s/,'')][:results] , params: {company: company_name.gsub(/'/,'').gsub(/\s/,'')} %></br>
+                                    <%= page_entries_info @results[company_name.gsub(/'/,'').gsub(/\s/,'')][:results] %>
                                 </div>
                             </div>
                         </div>
                       </div>
                     </div>
+                    <span hidden><%= @i = @i + 1%></span>
                 <% end %>
             </div>
           <% else %>
