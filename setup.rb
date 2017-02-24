@@ -32,7 +32,12 @@ end
 
 def migrate_oysters
 	client = establish_db_connection
-	client.query("SELECT *  FROM oysters").each do |res|
+	puts "Connection established"
+	client.query("SHOW TABLES").each do |tab|
+		puts tab
+	end
+	client.query("SELECT *  FROM runs").each do |res|
+		puts "got result"
 		puts res
 	end
 end
@@ -40,6 +45,6 @@ end
 ########## MAIN METHOD #####################
 bundle #bundle install
 initial_migration #Setup db
-migrate_oysters
+#migrate_oysters
 #add in og admin
 #Migrate all the oysters,runs,results from the AWS DB
