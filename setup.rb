@@ -1,5 +1,12 @@
 #Link every result to run id 48
+require 'mysql2'
 require 'fileutils'
+
+$company_data_endpoint = "companydata.c02zesysnssi.us-west-2.rds.amazonaws.com"
+
+def establish_db_connection
+	client = Mysql2::Client.new(host:$company_data_endpoint, username:"ivauser", password:"ivapassword", database: "Hooper's Island")
+end
 
 #This will run the initial migration that sets up the db to be apartment friendly
 def initial_migration
@@ -23,8 +30,16 @@ def bundle
     end
 end
 
+def migrate_oysters
+	client = establish_db_connection
+	client.query("SELECT *  FROM oysters").each do |res|
+		puts res
+	end
+end
+
 ########## MAIN METHOD #####################
 bundle #bundle install
 initial_migration #Setup db
+migrate_oysters
 #add in og admin
 #Migrate all the oysters,runs,results from the AWS DB
