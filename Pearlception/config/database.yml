@@ -31,8 +31,13 @@ stats_test:
 development:
   <<: *default
   database: Pearlception_development
+<<<<<<< HEAD
   username: <%= ENV['DEV_DB_USER']%> 
   password: <%= ENV['DEV_DB_PASS']%>
+=======
+  username: bmv 
+  password: 1156244terps!
+>>>>>>> 66dfc7d12c7a612332c9b8de8f32df39a0d362ce
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -40,8 +45,13 @@ development:
 test:
   <<: *default
   database: Pearlception_test
+<<<<<<< HEAD
   username: <%= ENV['DEV_DB_USER']%> 
   password: <%= ENV['DEV_DB_PASS']%>
+=======
+  username: bmv 
+  password: 1156244terps!
+>>>>>>> 66dfc7d12c7a612332c9b8de8f32df39a0d362ce
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
