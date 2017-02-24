@@ -3,7 +3,6 @@ class DashboardController < ApplicationController
 
     def index
         @results = Result.page(params[:page]).per(5)
-
     end
 
     def deny_to_visitors
