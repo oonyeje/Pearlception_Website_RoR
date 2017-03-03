@@ -98,6 +98,12 @@ end
 #bundle #bundle install
 #initial_migration #Setup db
 initial_migration if ARGV.include? "init"
-#setup_initial_admin #Insert the initial admin
-migrate_runs
-#migrate_grades #Migrate all the runs over
+if ARGV.include? "reset" 
+    puts "running reset"
+    Dir.chdir("Pearlception") do 
+        puts `rake db:drop`
+    end
+    initial_migration
+    drop_hoopers
+    setup_initial_admin
+end
