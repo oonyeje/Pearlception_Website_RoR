@@ -19,7 +19,6 @@ class Run
     end
 
     def to_insert_query
-        puts "#{@runDate}"
         "INSERT into runs (id, runDate, location, harvest_time, supplier, distributor, other, machine_id,created_at,updated_at) VALUES 
         (#{@run_id}, '#{@runDate}',\"#{@location}\",NOW(),\"#{@supplier}\",\"#{@distributor}\",
         \"#{@other}\",#{@machine_id},NOW(),NOW());"
@@ -28,11 +27,25 @@ class Run
 end
 
 #A class to represent a grade
-def Grade
+class Grade
     
     def initialize(params)
         @id = params["grade_id"]
         @full_name = params["Full_Name"] || "NULL"
+        @short_name = params["Short_Name"] || "NULL"
+        @volume_max = params["Volume_max"] || 0
+        @volume_min = params["Volume_min"] || 0
+        @length_max = params["Length_max"] || 0
+        @length_min = params["Length_min"] || 0
+        @width_max = params["Width_max"] || 0
+        @width_min = params["Width_min"] || 0
+        @height_max = params["Height_max"] || 0
+        @height_min = params["Height_min"] || 0
+    end
+
+    def to_insert_query
+        "INSERT into grades (id, Full_Name, Short_Name, Volume_max, Volume_min, Length_max, Length_min, Width_max, Width_min, Height_max, Height_min,created_at,updated_at) VALUES
+        (#{@id},\"#{@full_name}\",\"#{@short_name}\",#{@volume_max},#{@volume_min},#{@length_max},#{@length_min},#{@width_max},#{@width_min},#{@height_max},#{@height_min},NOW(),NOW());"
     end
 
 end
@@ -82,8 +95,10 @@ end
 #This will migrate over all the oystersd
 def migrate_grades
     client = Mysql2::Client.new(host: $company_data_endpoint, username: 'ivauser', password: 'ivapassword', database: 'Hooper\'s Island')
+	local_client = Mysql2::Client.new(host:'localhost' ,username:"bmv", password:"1156244terps!", database: "development_HoopersIsland")
     client.query("SELECT * FROM grades").each do |params|
-        puts params
+        grade = Grade.new(params)
+        local_client.query(grade.to_insert_query)
     end
 end
 
@@ -94,12 +109,22 @@ def drop_hoopers
 end
 
 
+#This will setup the Hooper's Island DB
+def setup_hoopers
+	client = Mysql2::Client.new(host:'localhost' ,username:"bmv", password:"1156244terps!", database: "Pearlception_development")
+    client.query("CREATE DATABASE development_HoopersIsland;")
+    client.query("INSERT INTO companies (company_name, company_token, created_at, updated_at) VALUES (\"Hooper's Island\",\"c25f10d9-61ad-4d2e-85fe-21f770d9a391\",NOW(),NOW());")
+end
+
+
 ########## MAIN METHOD #####################
-#bundle #bundle install
-#initial_migration #Setup db
-initial_migration if ARGV.include? "init"
-if ARGV.include? "reset" 
-    puts "running reset"
+if ARGV.include?("init") #What you should run upon a fresh clone eg: ruby setup.rb init
+    bundle
+    initial_migration
+    setup_initial_admin
+end
+
+if ARGV.include? "reset" #What to run if you want to reset ALL the data in the DBs eg: ruby setup.rb reset
     Dir.chdir("Pearlception") do 
         puts `rake db:drop`
     end
@@ -107,3 +132,13 @@ if ARGV.include? "reset"
     drop_hoopers
     setup_initial_admin
 end
+
+if ARGV.include? "hoopers" 
+    begin
+        setup_hoopers
+    rescue 
+        puts "Hoopers already exists"
+    end
+    migrate_runs
+end
+migrate_grades
