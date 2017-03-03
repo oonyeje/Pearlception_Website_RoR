@@ -46,6 +46,7 @@ def initial_migration
     FileUtils.rm(apartment_path) #Remove the original file
     FileUtils.cp(apartment_copy_path,apartment_path) #Copy the blank copy into init
     Dir.chdir('Pearlception') do 
+        puts `rake db:setup`
         puts `rake db:migrate` #Run the migration
     end
     FileUtils.rm(apartment_path) #Remove the blank copy
@@ -86,9 +87,17 @@ def migrate_grades
     end
 end
 
+#This will remvoe hoopers island DB
+def drop_hoopers
+	client = Mysql2::Client.new(host:'localhost' ,username:"bmv", password:"1156244terps!", database: "Pearlception_development")
+    client.query("DROP DATABASE development_HoopersIsland;")
+end
+
+
 ########## MAIN METHOD #####################
 #bundle #bundle install
 #initial_migration #Setup db
-setup_initial_admin #Insert the initial admin
+initial_migration if ARGV.include? "init"
+#setup_initial_admin #Insert the initial admin
 migrate_runs
 #migrate_grades #Migrate all the runs over
