@@ -15,3 +15,4 @@
 //= require turbolinks
 //= require bootstrap/bootstrap-rails-tooltip
 //= require bootstrap/bootstrap-rails-popover
+//= require Chart 
