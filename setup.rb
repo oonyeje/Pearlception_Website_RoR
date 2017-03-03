@@ -62,14 +62,14 @@ end
 
 #This will insert the initial IVA admin needed to run the website.
 def setup_initial_admin
-	client = Mysql2::Client.new(host:'localhost' ,username:"colealban", password:"1156244terps!", database: "Pearlception_development")
+	client = Mysql2::Client.new(host:'localhost' ,username:"bmv", password:"1156244terps!", database: "Pearlception_development")
 	client.query("INSERT INTO companies (company_name, company_token, created_at, updated_at) VALUES (\"IVA\", \"a41b23cf-1d61-4fb4-9b69-0167abd7c583\",NOW(),NOW())")
 end
 
 #This will migrate over all the runs that are on the AWS database to your local db
 def migrate_runs
     client = Mysql2::Client.new(host: $company_data_endpoint, username: 'ivauser', password: 'ivapassword', database: 'Hooper\'s Island')
-	local_client = Mysql2::Client.new(host:'localhost' ,username:"bmv", password:"1156244terps!", database: "Pearlception_development")
+	local_client = Mysql2::Client.new(host:'localhost' ,username:"bmv", password:"1156244terps!", database: "development_HoopersIsland")
     client.query("SELECT * FROM runs").each do |params|
         run = Run.new(params)
         puts run.to_insert_query
@@ -89,5 +89,6 @@ end
 ########## MAIN METHOD #####################
 #bundle #bundle install
 #initial_migration #Setup db
-#setup_initial_admin #Insert the initial admin
-migrate_grades #Migrate all the runs over
+setup_initial_admin #Insert the initial admin
+migrate_runs
+#migrate_grades #Migrate all the runs over
