@@ -7,7 +7,6 @@ class Company < ApplicationRecord
   private
 
     def create_tenant
-      binding.pry
       if company_name != "IVA"
         Apartment::Tenant.create(company_name.gsub(/'/,'').gsub(/\s/,''))
         Apartment::Tenant.switch!
