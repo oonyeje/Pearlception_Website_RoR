@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :companies
   resources :grades
 
-  devise_for :users, :controllers => {:registrations => 'registrations'}
+  devise_for :users, :controllers => {:registrations => 'registrations', :sessions => "sessions"}
   devise_scope :users do
     get 'signin' => 'registrations#new'
     post 'signin' => 'registrations#create'

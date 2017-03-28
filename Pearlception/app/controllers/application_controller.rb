@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
+  before_filter :configure_permitted_parameters, if: :devise_controller?
+  
   protect_from_forgery with: :exception
-  protected
+protected
+  
   def authenticate_user
     if session[:user_id]
        # set current user object to @current_user object variable
@@ -11,6 +14,7 @@ class ApplicationController < ActionController::Base
       return false
     end
   end
+
   def save_login_state
     if session[:user_id]
       redirect_to(:controller => 'sessions', :action => 'home')
@@ -19,4 +23,12 @@ class ApplicationController < ActionController::Base
       return true
     end
   end
+  
+  def configure_permitted_parameters
+    puts "CONFIG PARAMS"
+    devise_parameter_sanitizer.permit(:sign_in) do |user_params|
+      user_params.permit(:email, :password, :remember_me)
+    end 
+  end
+
 end
