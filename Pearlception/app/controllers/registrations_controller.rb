@@ -10,9 +10,11 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     user_params = sign_up_params
     @user = User.new(user_params)
-    if user_params[:password] == nil || user_params[:password_confirmation] == nil
+    if user_params[:password] == "" || user_params[:password_confirmation] == ""
+        puts "NO PASSWORD ERROR"
         flash[:error] = "Need a password to sign up"
-        redirect_to '/signin' and return 
+        redirect_to '/signin'
+        return 
     end
     if params[:company_serial]
       company = Company.find_by(company_token: params[:company_serial])
