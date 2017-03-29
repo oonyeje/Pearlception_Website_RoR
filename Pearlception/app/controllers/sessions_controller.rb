@@ -6,9 +6,10 @@ class SessionsController < Devise::RegistrationsController
   end
 
   def create
-    user_parameters = sign_in_params
-    @user = User.find_by(email: user_parameters[:email])
-    if @user == nil || !@user.valid_password?(user_parameters[:password])
+    puts "NOW IN CREATE"
+    params = sign_in_params
+    @user = User.find_by(email: params[:email])
+    if @user == nil || !@user.valid_password?(params[:password])
       redirect_to "/signin"
       return
     end 
