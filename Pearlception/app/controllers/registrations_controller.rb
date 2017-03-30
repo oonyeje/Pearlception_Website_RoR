@@ -22,14 +22,27 @@ class RegistrationsController < Devise::RegistrationsController
         if company.company_name == "IVA"
           @user.admin = true
         end
+      else
+        flash[:alert] = "The serial key provided was invalid."
+        redirect_to '/'
       end
+    else
+      flash[:alert] = "A company serial key must be provided to register."
+      redirect_to '/'
     end
-    @user.save
-    sign_in @user
-    if !@user.admin
-      Apartment::Tenant.switch(Company.find(@user.company_id).company_name.gsub(/'/,'').gsub(/\s/,''))
+  
+    if @user == ""
+      flash[:alert] = "Please provide a password to register with."
+      redirect_to '/'
+    else
+      @user.save
+      sign_in @user
+      if !@user.admin
+        Apartment::Tenant.switch(Company.find(@user.company_id).company_name.gsub(/'/,'').gsub(/\s/,''))
+      end
+      redirect_to "/" and return
     end
-    redirect_to "/" and return 
+    
   end
 
   private
