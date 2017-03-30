@@ -37,12 +37,12 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to '/'
     else
       @user.save
-    begin
-      sign_in @user
-    rescue 
-      flash[:error] = "Email already in use"
-      redirect_to '/signin' and return 
-    end
+      begin
+        sign_in @user
+      rescue 
+        flash[:error] = "Email already in use"
+        redirect_to '/signin' and return 
+      end
       if !@user.admin
         Apartment::Tenant.switch(Company.find(@user.company_id).company_name.gsub(/'/,'').gsub(/\s/,''))
       end
