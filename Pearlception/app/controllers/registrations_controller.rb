@@ -1,5 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   include ApplicationHelper
+
   #protected
   def new
       Apartment::Tenant.switch!
@@ -9,11 +10,11 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     user_params = sign_up_params
     @user = User.new(user_params)
-    #if either the password or password confirmation is missing, redirect to sign in again
-    puts params
-    if user_params[:password] == nil || user_params[:password_confirmation] == nil
+    if user_params[:password] == "" || user_params[:password_confirmation] == ""
+        puts "NO PASSWORD ERROR"
         flash[:error] = "Need a password to sign up"
-        redirect_to '/signin' and return 
+        redirect_to '/signin'
+        return 
     end
     if params[:company_serial]
       company = Company.find_by(company_token: params[:company_serial])
@@ -36,7 +37,12 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to '/'
     else
       @user.save
+    begin
       sign_in @user
+    rescue 
+      flash[:error] = "Email already in use"
+      redirect_to '/signin' and return 
+    end
       if !@user.admin
         Apartment::Tenant.switch(Company.find(@user.company_id).company_name.gsub(/'/,'').gsub(/\s/,''))
       end

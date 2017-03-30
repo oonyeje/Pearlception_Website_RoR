@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  before_filter :configure_permitted_parameters, if: :devise_controller?
-  
   protect_from_forgery with: :exception
 protected
   
@@ -24,11 +22,4 @@ protected
     end
   end
   
-  def configure_permitted_parameters
-    puts "CONFIG PARAMS"
-    devise_parameter_sanitizer.permit(:sign_in) do |user_params|
-      user_params.permit(:email, :password, :remember_me)
-    end 
-  end
-
 end
