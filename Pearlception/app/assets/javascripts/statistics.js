@@ -1,3 +1,8 @@
+$('#from_datepicker').datepicker()
+$('#to_datepicker').datepicker()
+/*
+*This is code for the grades chart.
+*/
 var ctx = document.getElementById("gradesChart");
 var myChart = new Chart(ctx, {
     type: 'bar',
@@ -35,3 +40,4 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
