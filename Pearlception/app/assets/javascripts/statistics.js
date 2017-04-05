@@ -4,23 +4,40 @@ Set up both the datepicker tabs with this
 $('#from_datepicker').datepicker()
 $('#to_datepicker').datepicker()
 
+$('#dateFilterButton').on('click',function(){
+    var fromDate = $('#from_datepicker')[0].value;
+    var toDate = $('#to_datepicker')[0].value;
+    var queryString = "";
+    if(fromDate != "" && toDate != ""){
+        queryString = "statistics.json/?from_date="+encodeURI(fromDate)+"&to_date="+encodeURI(toDate);
+    }   
+    else{
+        queryString = "statistics.json"
+    } 
+    $.get(queryString, function(gradeData){
+        constructGradesGraph(gradeData);
+    })
+});
+
 $(document).ready(
     $.get("statistics.json", function(gradeData){
         constructGradesGraph(gradeData);
     })
-);
+)
 
 function constructGradesGraph(gradeData){
     console.log(gradeData)
+    var labels = generateLabels(gradeData);
     var colors = generateColors(gradeData);
+    var gradeCounts = getGradeCounts(labels, gradeData);
     var ctx = document.getElementById("gradesChart");
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: generateLabels(gradeData),
+            labels: labels,
             datasets: [{
                 label: 'Count for each grade',
-                data: getGradeCount(gradeData),
+                data: gradeCounts,
                 backgroundColor: colors, 
                 borderColor: colors,
                 borderWidth: 1
@@ -36,6 +53,25 @@ function constructGradesGraph(gradeData){
             }
         }
     });
+}
+
+function getGradeCounts(labels, gradeData){
+    var counts = initCountArray(labels);
+    var oysters = gradeData.allOysters;
+    for(var i = 0; i < oysters.length; i++){
+        var grade = oysters[i].grade;
+        counts[labels.indexOf(grade)]++;
+    }
+    console.log(counts);
+    return counts;
+}
+
+function initCountArray(labels){
+    counts = [];
+    for(var i = 0; i < labels.length; i++){
+        counts.push(0)
+    }
+    return counts;
 }
 
 function generateLabels(gradeData){
@@ -63,12 +99,4 @@ function generateColors(gradeData){
         colors.push(color);
     }
     return colors;
-}
-
-function getGradeCount(gradeData){
-    counts = [];
-    for(var i = 0; i < gradeData.grades.length; i++){
-        counts.push(Math.random() * 100);
-    }
-    return counts;
 }
