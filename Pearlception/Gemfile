@@ -41,6 +41,7 @@ gem 'kaminari'
 #for popovers and tooltips
 gem 'bootstrap-popover-rails'
 gem 'apartment'
+gem 'high_voltage', '~> 3.0.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
