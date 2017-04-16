@@ -1,4 +1,29 @@
+require 'subdomain'
+
 Rails.application.routes.draw do
+  constraints(Subdomain) do
+    root 'dashboard#index'
+    # More subdomain constrained routes...
+    get 'oysters/show'
+    get 'oysters/index'
+
+    #get "dashboard/pearlception" => 'dashboard#index'
+    resources :runs
+    resources :companies
+    resources :grades
+
+    devise_for :users, :controllers => {:registrations => 'registrations', :sessions => 'sessions'}
+    #devise_for :users, controllers: {:sessions => 'session'}
+    devise_scope :users do
+      get 'signin' => 'registrations#new'
+      post 'signin' => 'registrations#create'
+      get 'signin'  => 'sessions#new'
+      post 'signin' => 'sessions#create'
+    end
+  end
+
+  #binding.pry
+
   get 'pages/home' => 'high_voltage/pages#show', id: 'home'
   get 'pages/applications/3D' => 'high_voltage/pages#show'
   get 'pages/applications/application' => 'high_voltage/pages#show'
@@ -50,20 +75,6 @@ Rails.application.routes.draw do
     config.home_page = 'home'
     config.route_drawer = HighVoltage::RouteDrawers::Root
   end
-
-   get 'oysters/show'
-   get 'oysters/index'
-
-  # root "dashboard#index"
-  # resources :runs
-  # resources :companies
-  # resources :grades
-
-  # devise_for :users, :controllers => {:registrations => 'registrations'}
-  # devise_scope :users do
-  #   get 'signin' => 'registrations#new'
-  #   post 'signin' => 'registrations#create'
-  # end
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

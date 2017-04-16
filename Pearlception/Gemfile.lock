@@ -132,6 +132,7 @@ GEM
       pry (>= 0.9.11)
     puma (3.6.2)
     rack (2.0.1)
+    rack-subdomain (0.0.2)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.1)
@@ -227,6 +228,7 @@ DEPENDENCIES
   pry-byebug
   pry-stack_explorer
   puma (~> 3.0)
+  rack-subdomain
   rails (~> 5.0.1)
   sass-rails (~> 5.0)
   spring
