@@ -12,11 +12,10 @@ class SessionsController < Devise::RegistrationsController
     if @user == nil || !@user.valid_password?(params[:password])
       redirect_to "/signin"
       return
-    end 
-    super
+    end
     #Do we need this code below? It was never running before
-    resource = warden.authenticate!(:scope => :user)
-    sign_in(:user, resource)
+    #resource = warden.authenticate!(:scope => :user)
+    sign_in(@user)
     if !current_user.admin
       Apartment::Tenant.switch!(Company.find(current_user.company_id).company_name.gsub(/'/,'').gsub(/\s/,''))
     end

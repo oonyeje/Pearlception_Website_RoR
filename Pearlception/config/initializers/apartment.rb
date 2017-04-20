@@ -10,6 +10,7 @@ require 'apartment/elevators/subdomain'
 # 
 # Apartment Configuration 
 # 
+Apartment::Elevators::Subdomain.excluded_subdomains = ['www', 'pearlception']
 Apartment.configure do |config| 
  
   # Add any models that you do not want to be multi-tenanted, but remain in the global (public) namespace. 
