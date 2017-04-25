@@ -53,6 +53,8 @@ GEM
     bootstrap-popover-rails (0.1.0)
     builder (3.2.2)
     byebug (9.0.6)
+    chart-js-rails (0.1.2)
+      railties (> 3.1)
     coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -87,6 +89,8 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (6.0.1)
+      railties (>= 3.2.16)
     kaminari (1.0.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.0.1)
@@ -215,6 +219,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootstrap-popover-rails
   byebug
+  chart-js-rails
   coffee-rails (~> 4.2)
   devise
   high_voltage (~> 3.0.0)
@@ -222,6 +227,7 @@ DEPENDENCIES
   hirb-unicode
   jbuilder (~> 2.5)
   jquery-rails
+  jquery-ui-rails
   kaminari
   listen (~> 3.0.5)
   mysql2 (>= 0.3.18, < 0.5)

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :runs
     resources :companies
     resources :grades
-
+	resources :statistics
     devise_for :users, :controllers => {:registrations => 'registrations', :sessions => 'sessions'}
     #devise_for :users, controllers: {:sessions => 'session'}
     devise_scope :users do

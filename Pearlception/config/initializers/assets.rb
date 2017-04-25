@@ -2,7 +2,7 @@
 
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
-Rails.application.config.assets.precompile += %w(bootstrap.css styles.css.erb bootstrap.min.js runs.js dashboard.css)
+Rails.application.config.assets.precompile += %w( statistics.js bootstrap.css styles.css.erb bootstrap.min.js runs.js dashboard.css)
 # Add additional assets to the asset load path
 # Rails.application.config.assets.paths << Emoji.images_path
 

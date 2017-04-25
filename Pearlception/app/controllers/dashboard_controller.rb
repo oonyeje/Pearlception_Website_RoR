@@ -8,7 +8,8 @@ class DashboardController < ApplicationController
           puts params
           @results = Hash.new
           names = (Company.pluck :company_name) - ["IVA"]
-          names.map!{|tenant| tenant.gsub(/'/,'').gsub(/\s/,'')}
+          binding.pry
+		  names.map!{|tenant| tenant.gsub(/'/,'').gsub(/\s/,'')}
           names.each do
               |name|
 
@@ -30,6 +31,10 @@ class DashboardController < ApplicationController
 
     def deny_to_visitors
       redirect_to "/signin" unless user_signed_in?
+    end
+
+    def statistics
+
     end
 
 end
