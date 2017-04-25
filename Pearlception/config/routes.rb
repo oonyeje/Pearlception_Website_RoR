@@ -1,8 +1,7 @@
 require 'subdomain'
 
 Rails.application.routes.draw do
-  constraints(Subdomain) do
-    root 'dashboard#index'
+    get '/pearlception', to: "dashboard#index" 
     # More subdomain constrained routes...
     get 'oysters/show'
     get 'oysters/index'
@@ -20,7 +19,6 @@ Rails.application.routes.draw do
       get 'signin'  => 'sessions#new'
       post 'signin' => 'sessions#create'
     end
-  end
 
   #binding.pry
 

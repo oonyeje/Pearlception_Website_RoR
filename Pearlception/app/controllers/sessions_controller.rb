@@ -6,7 +6,6 @@ class SessionsController < Devise::RegistrationsController
   end
 
   def create
-    puts "NOW IN CREATE"
     params = sign_in_params
     @user = User.find_by(email: params[:email])
     if @user == nil || !@user.valid_password?(params[:password])
@@ -19,7 +18,7 @@ class SessionsController < Devise::RegistrationsController
     if !current_user.admin
       Apartment::Tenant.switch!(Company.find(current_user.company_id).company_name.gsub(/'/,'').gsub(/\s/,''))
     end
-    redirect_to "/"
+    redirect_to "/pearlception"
   end
 
 private
