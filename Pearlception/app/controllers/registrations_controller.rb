@@ -25,16 +25,16 @@ class RegistrationsController < Devise::RegistrationsController
         end
       else
         flash[:alert] = "The serial key provided was invalid."
-        redirect_to '/'
+        redirect_to '/signin'
       end
     else
       flash[:alert] = "A company serial key must be provided to register."
-      redirect_to '/'
+      redirect_to '/signin'
     end
   
     if @user == ""
       flash[:alert] = "Please provide a password to register with."
-      redirect_to '/'
+      redirect_to '/signin'
     else
       @user.save
       begin
@@ -46,7 +46,7 @@ class RegistrationsController < Devise::RegistrationsController
       if !@user.admin
         Apartment::Tenant.switch(Company.find(@user.company_id).company_name.gsub(/'/,'').gsub(/\s/,''))
       end
-      redirect_to "/" and return
+      redirect_to "/pearlception" and return
     end
     
   end

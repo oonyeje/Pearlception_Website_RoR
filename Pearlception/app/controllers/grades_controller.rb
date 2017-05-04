@@ -1,6 +1,10 @@
 class GradesController < ApplicationController
     before_filter :deny_to_visitors
 
+	def new
+
+	end
+
     def index
         @grades = Grade.all
     end
