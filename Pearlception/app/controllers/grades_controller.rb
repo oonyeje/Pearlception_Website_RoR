@@ -14,7 +14,8 @@ class GradesController < ApplicationController
     end
 
 	def create
-		Grade.create(grades_params)
+		grade = Grade.new(grades_params)
+		grade.save
 		redirect_to '/grades'
 	end
 
