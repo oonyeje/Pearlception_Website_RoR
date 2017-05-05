@@ -12,4 +12,15 @@ class GradesController < ApplicationController
     def deny_to_visitors
         redirect_to "/signin" unless user_signed_in? && !current_user.admin?
     end
+
+	def create
+		Grade.create(grades_params)
+		redirect_to '/grades'
+	end
+
+private
+	def grades_params
+		params.require(:grade).permit(:Full_name,:Short_name, :Width_min,:Width_max,:Height_min,:Height_max, :Length_min,:Length_max)
+	end
+
 end

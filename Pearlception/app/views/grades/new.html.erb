@@ -62,27 +62,27 @@
 
 	<!--Form for new grade here-->
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-	<form method="POST">
+	<form action="/grades" method="POST">
 		<%=csrf_meta_tag%>
 		<div class="form-group">
 			<label>Full Name</label>
-			<input type="text" class="form-control" placeholder="Full name of grade">
+			<input type="text" class="form-control" placeholder="Full name of grade" name="grade[Full_name]">
 		</div>
 		<div class="form-group">
 			<label>Short Name(10 characters max)</label>
-			<input type="text" class="form-control" placeholder="Short name of grade">
+			<input type="text" class="form-control" placeholder="Short name of grade" name="grade[Short_name]">
 		</div>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">
 					<label>Max Width</label>
-					<input type="text" class="form-control" placeholder="Maximum width for oysters in this grade.">
+					<input type="text" class="form-control" placeholder="Maximum width for oysters in this grade." name="grade[Width_max]">
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group">
 					<label>Minimum Width</label>
-					<input type="text" class="form-control" placeholder="Minimum width for oysters in this grade">
+					<input type="text" class="form-control" placeholder="Minimum width for oysters in this grade" name="grade[Width_min]">
 				</div>
 			</div>
 		</div>
@@ -90,13 +90,13 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label>Max Length</label>
-					<input type="text" class="form-control" placeholder="Maximum length for oysters in this grade.">
+					<input type="text" class="form-control" placeholder="Maximum length for oysters in this grade." name="grade[Length_max]">
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group">
 					<label>Minimum Length</label>
-					<input type="text" class="form-control" placeholder="Minimum length for oysters in this grade">
+					<input type="text" class="form-control" placeholder="Minimum length for oysters in this grade" name="grade[Length_min]">
 				</div>
 			</div>
 		</div>
@@ -104,13 +104,13 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label>Max Height</label>
-					<input type="text" class="form-control" placeholder="Maximum height for oysters in this grade.">
+					<input type="text" class="form-control" placeholder="Maximum height for oysters in this grade." name="grade[Height_max]">
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group">
 					<label>Minimum Height</label>
-					<input type="text" class="form-control" placeholder="Minimum height for oysters in this grade">
+					<input type="text" class="form-control" placeholder="Minimum height for oysters in this grade" name="grade[Height_min]">
 				</div>
 			</div>
 		</div>
