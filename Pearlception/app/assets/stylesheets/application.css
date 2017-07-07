@@ -15,4 +15,10 @@
  *= require bootstrap/bootstrap-rails-tooltip
  *= require bootstrap/bootstrap-rails-popover
  *= require jquery-ui
+ 
+ .linkable:hover{
+    background-color: red;
+  }
  */
+
+

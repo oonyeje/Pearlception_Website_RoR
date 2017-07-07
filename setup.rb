@@ -2,7 +2,7 @@
 require 'mysql2'
 require 'fileutils'
 
-$company_data_endpoint = "companydata.c02zesysnssi.us-west-2.rds.amazonaws.com"
+#$company_data_endpoint = "companydata.c02zesysnssi.us-west-2.rds.amazonaws.com"
 
 #A class to represent a run
 class Run
@@ -93,14 +93,14 @@ end
 
 
 #This will migrate over all the oystersd
-def migrate_grades
-    client = Mysql2::Client.new(host: $company_data_endpoint, username: 'ivauser', password: 'ivapassword', database: 'Hooper\'s Island')
-	local_client = Mysql2::Client.new(host:'localhost' ,username:"bmv", password:"1156244terps!", database: "development_HoopersIsland")
-    client.query("SELECT * FROM grades").each do |params|
-        grade = Grade.new(params)
-        local_client.query(grade.to_insert_query)
-    end
-end
+# def migrate_grades
+#     client = Mysql2::Client.new(host: $company_data_endpoint, username: 'ivauser', password: 'ivapassword', database: 'Hooper\'s Island')
+# 	local_client = Mysql2::Client.new(host:'localhost' ,username:"bmv", password:"1156244terps!", database: "development_HoopersIsland")
+#     client.query("SELECT * FROM grades").each do |params|
+#         grade = Grade.new(params)
+#         local_client.query(grade.to_insert_query)
+#     end
+# end
 
 #This will remvoe hoopers island DB
 def drop_hoopers
@@ -119,8 +119,8 @@ end
 
 ########## MAIN METHOD #####################
 if ARGV.include?("init") #What you should run upon a fresh clone eg: ruby setup.rb init
-    bundle
-    initial_migration
+    #bundle
+    #initial_migration
     setup_initial_admin
 end
 
@@ -139,6 +139,6 @@ if ARGV.include? "hoopers"
     rescue 
         puts "Hoopers already exists"
     end
-    migrate_runs
+    #migrate_runs
 end
-migrate_grades
+#migrate_grades

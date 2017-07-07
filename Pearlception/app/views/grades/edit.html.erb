@@ -1,0 +1,124 @@
+<head>
+<%= stylesheet_link_tag "dashboard" %>_
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/pearlception">Pearlception</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <!-- <li><a href="#">Dashboard</a></li> -->
+            <!-- <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li> -->
+            <li>
+                <%= link_to(destroy_user_session_path, class: 'logout-link', :method => :delete) do %>
+                <i class="fa fa-external-link"></i> Logout
+                <% end %>
+            </li>
+          </ul>
+          <!-- <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form> -->
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="/pearlception">Overview</a></li>
+            <!-- This will be removed and placed with correct logic in corresponding controller -->
+            <% if current_user.admin? %>
+                <li><a href="companies#index">Companies</a></li>
+            <% else %>
+                <li><a href="statistics#index">Statistics</a></li>
+                <li class="active"><a href="grades#index">Grades <span class="sr-only">(current)</span></a></li>
+                <li><a href="/suppliers_distributors">Suppliers and Distributors</a></li>
+            <% end %>
+          </ul>
+          <!-- <ul class="nav nav-sidebar">
+            <li><a href="">Nav item</a></li>
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+            <li><a href="">More navigation</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+          </ul> -->
+        </div>
+      </div>
+    </div>
+
+	<!--Form for new grade here-->
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	<%= form_for @grade, :url =>{:action => "update", :id =>@grade} do |f|%>
+		<div class="form-group">
+			<label>Full Name</label>
+			<input type="text" class="form-control" placeholder="<%= @grade.Full_name%>" name="grade[Full_name]">
+		</div>
+		<div class="form-group">
+			<label>Short Name(10 characters max)</label>
+			<input type="text" class="form-control" placeholder="<%= @grade.Short_name%>" name="grade[Short_name]">
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label>Max Width</label>
+					<input type="text" class="form-control" placeholder="<%= @grade.Width_max%>" name="grade[Width_max]">
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label>Minimum Width</label>
+					<input type="text" class="form-control" placeholder="<%= @grade.Width_min%>" name="grade[Width_min]">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label>Max Length</label>
+					<input type="text" class="form-control" placeholder="<%= @grade.Length_max%>" name="grade[Length_max]">
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label>Minimum Length</label>
+					<input type="text" class="form-control" placeholder="<%= @grade.Length_min%>" name="grade[Length_min]">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label>Max Height</label>
+					<input type="text" class="form-control" placeholder="<%= @grade.Height_max%>" name="grade[Height_max]">
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label>Minimum Height</label>
+					<input type="text" class="form-control" placeholder="<%= @grade.Height_min%>" name="grade[Height_min]">
+				</div>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+
+	<% end %>
+	</div>
+	<!--End of edit grade form-->
+  <%= javascript_include_tag "bootstrap.min" %>_
+</body>

@@ -1,6 +1,12 @@
 require 'subdomain'
 
 Rails.application.routes.draw do
+  #get 'suppliers_distributors/index'
+
+  #get 'suppliers_distributors/new'
+
+  #post 'suppliers_distributors/create'
+
     get '/pearlception', to: "dashboard#index" 
     # More subdomain constrained routes...
     get 'oysters/show'
@@ -10,6 +16,7 @@ Rails.application.routes.draw do
     resources :runs
     resources :companies
     resources :grades
+    resources :suppliers_distributors
 	resources :statistics
     devise_for :users, :controllers => {:registrations => 'registrations', :sessions => 'sessions'}
     #devise_for :users, controllers: {:sessions => 'session'}

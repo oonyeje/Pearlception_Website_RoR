@@ -1,0 +1,41 @@
+<h1 class="page-header"><strong>Suppliers</strong></h1>
+<h2 class="sub-header">Supplier List</h2>
+<div class="table-responsive panel panel-primary">
+    <%= link_to "Register a Supplier",{:controller => "suppliers_distributors", :action => "new", :type => "supplier"} %>
+    <table class="table table-striped">
+        <div class="panel-heading">
+            <thead>
+            <tr>
+                <th class="center-text">Supplier Name</th>
+            </tr>
+            </thead>
+        </div>
+        <div class="panel-body">
+            <% if @suppliers.empty? %>
+            </table>
+            <% else %>
+            <tbody>
+                <% @suppliers.each_slice(1) do |row| %>
+                <tr>
+                    <% row.each do |supplier|%>
+                        <td>
+                            <%= supplier.name%>
+                        </td>
+                        <td style="align-self: flex">
+                            <%= link_to "Edit", {:controller => "suppliers_distributors", :id => supplier.id, :page_num => params[:page], :type => "supplier", :action => "edit"},{:class => "btn btn-primary"} %>
+                            <%= link_to "Delete", {:controller => "suppliers_distributors", :id => supplier.id, :page_num => params[:page], :type => "supplier", :action => "destroy"}, {data: { confirm: "Are you sure you want to delete this supplier?" },:class => "btn btn-danger"} %>
+                        </td>
+                    <% end %>
+                </tr>
+                <% end %>
+            </tbody>
+            </table>
+            <% end %>
+    </div>
+    <div class="center-block">
+        <div class="col-sm-6 col-sm-offset-3 panel panel-primary" align="center">
+            <%= paginate @suppliers %></br>
+            <%= page_entries_info @suppliers %>
+        </div>
+    </div>
+</div>

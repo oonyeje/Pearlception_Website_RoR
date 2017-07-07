@@ -5,6 +5,21 @@ class GradesController < ApplicationController
 
 	end
 
+	def edit
+		@grade = Grade.find(params[:id])
+	end
+
+	def update
+		@grade = Grade.find(params[:id])
+		binding.pry
+		if @grade.update_attributes(grades_params)
+			redirect_to :action => 'index'
+		else
+			flash[:alert] = "Required fields are missing."
+			redirect_to :action => 'edit', :id => @grade
+		end
+	end
+
     def index
         @grades = Grade.all
     end

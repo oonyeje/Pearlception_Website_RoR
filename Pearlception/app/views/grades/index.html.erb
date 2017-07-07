@@ -42,6 +42,7 @@
             <% else %>
                 <li><a href="statistics#index">Statistics</a></li>
                 <li class="active"><a href="grades#index">Grades <span class="sr-only">(current)</span></a></li>
+                <li><a href="/suppliers_distributors">Suppliers and Distributors</a></li>
             <% end %>
           </ul>
           <!-- <ul class="nav nav-sidebar">
@@ -68,6 +69,7 @@
               <thead>
                 <tr>
                   <th>Grade Name</th>
+                  <th>Short Name</th>
                   <th>Min Volume</th>
                   <th>Max Volume</th>
                   <th>Min Length</th>
@@ -76,6 +78,7 @@
                   <th>Max Width</th>
                   <th>Min Height</th>
                   <th>Max Height</th>
+                  <th></th>
                 </tr>
               </thead>
                   <% if @grades.empty? %>
@@ -86,56 +89,69 @@
                     <% else %>
                         <tbody>
                           <% @grades.each_slice(1) do |row| %>
-                                     <tr>
-                                         <% row.each do |grade|%>
+                              <% row.each do |grade|%>
+                                <%= link_to edit_grade_path(grade) do %>
+                                  <div class="linkable">
+                                    <tr data-link="<%= edit_grade_path(grade) %>">
+                                        <!-- grade_name -->
+                                        <td>
+                                            <%= grade.Full_name %>
+                                        </td>
 
-                                             <!-- grade_name -->
-                                             <td>
-                                                 <%= grade.Full_name %>
-                                             </td>
+                                        <!-- short_name -->
+                                        <td>
+                                            <%= grade.Short_name %>
+                                        </td>
 
-                                             <!-- volume min -->
-                                             <td>
-                                                 <%= grade.Volume_min %>
-                                             </td>
+                                        <!-- volume min -->
+                                        <td>
+                                            <%= grade.Volume_min %>
+                                        </td>
 
-                                             <!-- volume max -->
-                                             <td>
-                                                 <%= grade.Volume_max %>
-                                             </td>
+                                        <!-- volume max -->
+                                        <td>
+                                            <%= grade.Volume_max %>
+                                        </td>
 
-                                             <!-- length min -->
-                                             <td>
-                                                 <%= grade.Length_min %>
-                                             </td>
+                                        <!-- length min -->
+                                        <td>
+                                            <%= grade.Length_min %>
+                                        </td>
 
-                                             <!-- length max -->
-                                             <td>
-                                                 <%= grade.Length_max %>
-                                             </td>
+                                        <!-- length max -->
+                                        <td>
+                                            <%= grade.Length_max %>
+                                        </td>
 
-                                             <!-- width min -->
-                                             <td>
-                                                 <%= grade.Width_min %>
-                                             </td>
+                                        <!-- width min -->
+                                        <td>
+                                            <%= grade.Width_min %>
+                                        </td>
 
-                                             <!-- width max -->
-                                             <td>
-                                                 <%= grade.Width_max %>
-                                             </td>
+                                        <!-- width max -->
+                                        <td>
+                                            <%= grade.Width_max %>
+                                        </td>
 
-                                             <!-- height min -->
-                                             <td>
-                                                 <%= grade.Height_min %>
-                                             </td>
+                                        <!-- height min -->
+                                        <td>
+                                            <%= grade.Height_min %>
+                                        </td>
 
-                                             <!-- height max -->
-                                             <td>
-                                                 <%= grade.Height_max %>
-                                             </td>
-                                         <% end %>
+                                        <!-- height max -->
+                                        <td>
+                                            <%= grade.Height_max %>
+                                        </td>
+
+                                        <!--edit grade details-->
+                                        <td>
+                                          <%= link_to "Edit", edit_grade_path(grade), :class => "btn btn-primary" %>
+                                        </td>
                                      </tr>
-                                   <% end %>
+                                  </div>
+                                <% end %>
+                              <% end %>
+                        <% end%>
                         </tbody>
                     </table>
                   <% end %>
