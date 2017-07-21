@@ -61,7 +61,7 @@
           </ul> -->
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <%= link_to "Back", root_path( :page => params[:page_num]), :class => "btn btn-primary" %>
+          <%= link_to "Back", root_path( :page => params[:page_num]) + "pearlception", :class => "btn btn-primary" %>
           <h1 class="page-header">Results of <%= Run.find(params[:result_id]).runDate %></h1>
           <h2 class="sub-header">Processed Oysters: <%= @oysters_count %> </h2>
           <% if @oysters.empty? %>

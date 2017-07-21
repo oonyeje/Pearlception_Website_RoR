@@ -1,13 +1,26 @@
 class StatisticsController < ApplicationController
 
     def index
+        @suppliers = Supplier.all 
+        @distributors = Distributor.all
+        #filterUsed = false
+        runs = Run.all
         if params[:from_date] != nil && params[:to_date] != nil
             from_date = Date.strptime(params[:from_date], '%m/%d/%Y')
             to_date = Date.strptime(params[:to_date], '%m/%d/%Y')
-            runs = Run.where(:runDate => from_date.beginning_of_day..to_date.end_of_day)
-        else
-            runs = Run.all
+            #runs = Run.where(:runDate => from_date.beginning_of_day..to_date.end_of_day)
+            runs = runs.by_date(from_date.beginning_of_day..to_date.end_of_day)
         end
+
+        if params[:supplier] != nil
+            runs = runs.by_supplier(params[:supplier])
+        end
+
+        if params[:distributor] != nil
+            runs = runs.by_distributor(params[:distributor])
+        end
+        #    runs = Run.all
+        #end
         puts runs.inspect
         oysterData = []
         all_oysters = []

@@ -7,17 +7,45 @@ $('#to_datepicker').datepicker()
 $('#dateFilterButton').on('click',function(){
     var fromDate = $('#from_datepicker')[0].value;
     var toDate = $('#to_datepicker')[0].value;
-    var queryString = "";
+    var supplier = $('#supplier').find(":selected").text();
+    var distributor = $('#distributor').find(":selected").text();
+    var queryString = "statistics.json";
     if(fromDate != "" && toDate != ""){
-        queryString = "statistics.json/?from_date="+encodeURI(fromDate)+"&to_date="+encodeURI(toDate);
-    }   
-    else{
-        queryString = "statistics.json"
-    } 
+        queryString = queryString + "/?from_date="+encodeURI(fromDate)+"&to_date="+encodeURI(toDate);
+    }
+    if(supplier != ""){
+        if(queryString.includes("/")){
+            queryString = queryString + "&supplier="+encodeURI(supplier);
+        }else{
+            queryString = queryString + "/?supplier="+encodeURI(supplier);
+        }
+    }
+
+    if(distributor != ""){
+        if(queryString.includes("/")){
+            queryString = queryString + "&distributor="+encodeURI(distributor);
+        }else{
+            queryString = queryString + "/?distributor="+encodeURI(distributor);
+        }
+    }
+     
     $.get(queryString, function(gradeData){
         constructGradesGraph(gradeData);
     })
 });
+
+(function($){ $(window).on("load",function(){ 
+    $('.filter-dropdown').find('.filter-form').click(function (e) {
+        e.stopPropagation();
+        if ($(e.target).is('[name=supplier]')) {
+            $($(e.target).data('target')).modal()
+        }
+    }); 
+}); 
+})(jQuery);
+
+
+
 
 $(document).ready(
     $.get("statistics.json", function(gradeData){
