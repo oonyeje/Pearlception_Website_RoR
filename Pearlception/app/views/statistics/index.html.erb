@@ -48,7 +48,50 @@
         </div>
       </div>
     </div>
+
+
     <div class="row">
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="col-md-6">
+          <div class='dropdown' data-dropdown='dropdown'>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Add a Filter <b class="caret"></b></a>
+            <div class='dropdown-menu' id='filter-dropdown'>
+              <div id="filter-form">
+                <fieldset class='textbox'>
+                  <div class="col-md-2">
+                    <p>From: <input type="text" id="from_datepicker" name="from_date"></p>
+                  </div><br/><br/>
+                  <div class="col-md-2">
+                    <p>To: <input type="text" id="to_datepicker" name="to_date"></p>
+                  </div>
+                </fieldset>
+                <fieldset >
+                  <div class="col-md-2">
+                    <!-@FIXME: select dropdowns not working in popup dropdown this has something to do with the jQuery script I suspect->
+                    <p>Supplier: <%= select_tag "supplier", (options_from_collection_for_select(@suppliers, "id", "name")) %></p>
+                  </div>
+                </fieldset>
+                <fieldset >
+                  <div class="col-md-2">
+                    <p>Distributor: <%= select_tag "distributor", (options_from_collection_for_select(@distributors, "id", "name")) %></p>
+                  </div>
+                </fieldset>
+                <fieldset class='subchk'>
+                  <div class="col-md-2">
+                    <button class="btn btn-primary" id="dateFilterButton">Filter</button>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+
+    <!--<div class="row">
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <div class="col-md-2">
           <p>From: <input type="text" id="from_datepicker" name="from_date"></p>
@@ -60,10 +103,13 @@
           <button class="btn btn-primary" id="dateFilterButton">Filter</button>
         </div>
       </div>
-    </div>
+    </div>-->
+
     <div class="row">
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <div class="col-lg-12">
+            <!-@FIXME: When filtering the original grades chart that displays
+            when the page originally loads is underlayed beneath the filtered graph ->
               <canvas id="gradesChart"></canvas>   
           </div>
       </div>

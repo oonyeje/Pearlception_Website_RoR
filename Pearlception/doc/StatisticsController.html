@@ -192,20 +192,46 @@
 21
 22
 23
-24</pre>
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'app/controllers/statistics_controller.rb', line 3</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
+    <span class='ivar'>@suppliers</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Supplier.html" title="Supplier (class)">Supplier</a></span></span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span> 
+    <span class='ivar'>@distributors</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Distributor.html" title="Distributor (class)">Distributor</a></span></span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span>
+    <span class='comment'>#filterUsed = false
+</span>    <span class='id identifier rubyid_runs'>runs</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Run.html" title="Run (class)">Run</a></span></span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:from_date</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='kw'>nil</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:to_date</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='kw'>nil</span>
         <span class='id identifier rubyid_from_date'>from_date</span> <span class='op'>=</span> <span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_strptime'>strptime</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:from_date</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>%m/%d/%Y</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
         <span class='id identifier rubyid_to_date'>to_date</span> <span class='op'>=</span> <span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_strptime'>strptime</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:to_date</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>%m/%d/%Y</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-        <span class='id identifier rubyid_runs'>runs</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Run.html" title="Run (class)">Run</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='symbol'>:runDate</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_from_date'>from_date</span><span class='period'>.</span><span class='id identifier rubyid_beginning_of_day'>beginning_of_day</span><span class='op'>..</span><span class='id identifier rubyid_to_date'>to_date</span><span class='period'>.</span><span class='id identifier rubyid_end_of_day'>end_of_day</span><span class='rparen'>)</span>
-    <span class='kw'>else</span>
-        <span class='id identifier rubyid_runs'>runs</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Run.html" title="Run (class)">Run</a></span></span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span>
+        <span class='comment'>#runs = Run.where(:runDate =&gt; from_date.beginning_of_day..to_date.end_of_day)
+</span>        <span class='id identifier rubyid_runs'>runs</span> <span class='op'>=</span> <span class='id identifier rubyid_runs'>runs</span><span class='period'>.</span><span class='id identifier rubyid_by_date'>by_date</span><span class='lparen'>(</span><span class='id identifier rubyid_from_date'>from_date</span><span class='period'>.</span><span class='id identifier rubyid_beginning_of_day'>beginning_of_day</span><span class='op'>..</span><span class='id identifier rubyid_to_date'>to_date</span><span class='period'>.</span><span class='id identifier rubyid_end_of_day'>end_of_day</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
-    <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_runs'>runs</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:supplier</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='kw'>nil</span>
+        <span class='id identifier rubyid_runs'>runs</span> <span class='op'>=</span> <span class='id identifier rubyid_runs'>runs</span><span class='period'>.</span><span class='id identifier rubyid_by_supplier'>by_supplier</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:supplier</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:distributor</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='kw'>nil</span>
+        <span class='id identifier rubyid_runs'>runs</span> <span class='op'>=</span> <span class='id identifier rubyid_runs'>runs</span><span class='period'>.</span><span class='id identifier rubyid_by_distributor'>by_distributor</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:distributor</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+    <span class='comment'>#    runs = Run.all
+</span>    <span class='comment'>#end
+</span>    <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_runs'>runs</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span>
     <span class='id identifier rubyid_oysterData'>oysterData</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_all_oysters'>all_oysters</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_runs'>runs</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_run'>run</span><span class='op'>|</span>
@@ -229,7 +255,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jul  7 17:36:17 2017 by
+  Generated on Fri Jul 21 16:12:54 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.3.3).
 </div>

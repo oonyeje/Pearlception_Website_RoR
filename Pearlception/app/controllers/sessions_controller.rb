@@ -1,3 +1,5 @@
+#@FIXME: When logging out users are prompted that there accounts have been cancelled when really they
+#just logged out. 
 class SessionsController < Devise::RegistrationsController
   include ApplicationHelper
 
